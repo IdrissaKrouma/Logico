@@ -1,6 +1,3 @@
-// import 'package:audioplayers/audioplayers.dart';
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:logico/niveaux/niveau1.dart';
 import 'package:logico/niveaux/niveau2.dart';
@@ -13,13 +10,8 @@ import 'package:logico/niveaux/niveau8.dart';
 import 'package:logico/niveaux/niveau9.dart';
 import 'package:logico/niveaux/niveau10.dart';
 import 'package:logico/menu.dart';
-import 'globals.dart';
 
-//import 'package:sqflite/sqflite.dart';
-//import 'package:path_provider/path_provider.dart';
-//import 'package:path/path.dart';
-
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -31,23 +23,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // AudioPlayer? _player;
-
-  // @override
-  // void dispose() {
-  //   _player?.dispose();
-  //   super.dispose();
-  // }
-
-  // void _play() {
-  //   _player?.dispose();
-  //   final player = _player = AudioPlayer();
-  //   player.play(AssetSource('audio/SoundHelix-Song-1.mp3'));
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // _play();
     return MaterialApp(
       title: 'LOGICO',
       theme: ThemeData(

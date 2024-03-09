@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logico/globals.dart';
+import 'package:logico/Database/globals.dart';
 import 'package:logico/widgetUtilitaires/autres/actu_bar.dart';
 import 'package:logico/widgetUtilitaires/autres/bottom_app.dart';
 
@@ -75,7 +75,7 @@ class _MenuState extends State<Menu> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Scaffold build(BuildContext context) {
     int globalLevel = getGlobalLevel();
     int score = globalLevel * 5;
     return Scaffold(

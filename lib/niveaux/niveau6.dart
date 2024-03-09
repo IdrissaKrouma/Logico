@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:logico/globals.dart';
+import 'package:logico/Database/globals.dart';
 import 'package:logico/menu.dart';
 import 'package:logico/widgetUtilitaires/autres/actu_bar.dart';
 import 'package:logico/widgetUtilitaires/autres/bottom_app.dart';
