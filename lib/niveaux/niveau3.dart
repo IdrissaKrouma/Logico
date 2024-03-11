@@ -71,195 +71,201 @@ class _Niveau3State extends State<Niveau3> {
           ),
         ),
       ),
-      body: Container(
-        height: 700,
-        decoration: const BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 2.5, color: Color(0xFF2667FF)),
-          ),
-        ),
-        child: ListView(children: [
-          const SizedBox(
-            height: 10,
-          ),
-          ActuBar(level: level, score: score, chance: chance),
-          Container(
-            margin: const EdgeInsets.all(15),
-            width: 390,
-            height: 650,
-            decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(15),
+      body: Center(
+        child: Container(
+          width: 390,
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(width: 2.5, color: Color(0xFF2667FF)),
             ),
-            child: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                //Lampe left
-                Positioned(
-                    top: 50,
-                    left: 100,
-                    child: Lampe(lampeState: orController.ouput())),
-                //Lampe right
-                Positioned(
-                    top: 50,
-                    right: 100,
-                    child: Lampe(lampeState: andController.ouput())),
-                // OR
-                Positioned(
-                    top: 190, left: 65, child: Or(controller: orController)),
-                // AND
-                Positioned(
-                    top: 190, right: 65, child: And(controller: andController)),
-                // nor
-                Positioned(top: 370, child: Not(controller: notController)),
-                // OUTPUT or L1
-                Positioned(
-                  top: 105,
-                  left: 125,
-                  child: LienVertical(
-                    height: 120,
-                    lienState: orController.ouput(),
-                  ),
-                ),
-                // OUTPUT and L2
-                Positioned(
-                  top: 105,
-                  right: 125,
-                  child: LienVertical(
-                    height: 120,
-                    lienState: andController.ouput(),
-                  ),
-                ),
-                // left input or L3
-                Positioned(
-                  top: 280,
-                  left: 103,
-                  child: LienVertical(lienState: stateBouton1, height: 225),
-                ),
-                // right input or L4
-                Positioned(
-                  top: 280,
-                  left: 145,
-                  child: LienVertical(
-                    height: 56,
-                    lienState: notController.output(),
-                  ),
-                ),
-                Positioned(
-                  top: 330,
-                  left: 150,
-                  child: LienHorizontal(
-                    width: 63,
-                    lienState: notController.output(),
-                  ),
-                ),
-                Positioned(
-                  top: 330,
-                  child: LienVertical(
-                    height: 60,
-                    lienState: notController.output(),
-                  ),
-                ),
-                // left input and L4
-                Positioned(
-                  top: 285,
-                  right: 145,
-                  child: LienVertical(
-                      lienState: notController.output(), height: 50),
-                ),
-                // right input and L5
-                Positioned(
-                  top: 285,
-                  right: 104,
-                  child: LienVertical(
-                    height: 224,
-                    lienState: stateBouton3,
-                  ),
-                ),
-                // input not
-                Positioned(
-                  bottom: 140,
-                  child: LienVertical(lienState: stateBouton2, height: 50),
-                ),
-                // B1
-                Positioned(
-                  // top: 250,
-                  bottom: 87,
-                  left: 77,
-                  child: Bouton(
-                      input: stateBouton1,
-                      onTap: () {
-                        setState(() {
-                          stateBouton1 = !stateBouton1;
-                          chance = chance - 1;
-                          orController.ouput();
-                          andController.ouput();
-                          if (chance == 0) {
-                            Reprendre(context, '/Niveau${level - 1}');
-                          }
-                        });
-                      }),
-                ),
-                // B2
-                Positioned(
-                  // top: 250,
-                  bottom: 87,
-                  child: Bouton(
-                      input: stateBouton2,
-                      onTap: () {
-                        setState(() {
-                          stateBouton2 = !stateBouton2;
-                          chance = chance - 1;
-                          orController.ouput();
-                          andController.ouput();
-                          if (chance == 0) {
-                            Reprendre(context, '/Niveau${level - 1}');
-                          }
-                        });
-                      }),
-                ),
-                // B3
-                Positioned(
-                  // top: 250,
-                  bottom: 87,
-                  right: 77,
-                  child: Bouton(
-                      input: stateBouton3,
-                      onTap: () {
-                        setState(() {
-                          stateBouton3 = !stateBouton3;
-                          chance = chance - 1;
-                          orController.ouput();
-                          andController.ouput();
-                          if ((orController.ouput() == true &&
-                              !andController.ouput() == true)) {
-                            if (level == globalLevel) {
-                              setGlobalLevel(level + 1);
-                            }
-                            Suivant(context, '/Niveau${level + 1}');
-                          } else if (chance == 0) {
-                            Reprendre(context, '/Niveau${level - 1}');
-                          }
-                        });
-                      }),
-                ),
-                // text
-                const Positioned(
-                  bottom: 15,
-                  width: 360,
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    "Allumer les deux lampes en un clics",
-                    style: TextStyle(
-                      fontSize: 25,
-                      // textAlign: TextAlign.center,
+          ),
+          child: ListView(children: [
+            const SizedBox(
+              height: 10,
+            ),
+            ActuBar(level: level, score: score, chance: chance),
+            Container(
+              margin: const EdgeInsets.all(15),
+              height: 650,
+              decoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  //Lampe left
+                  Positioned(
+                      top: 50,
+                      left: 100,
+                      child: Lampe(lampeState: orController.ouput())),
+                  //Lampe right
+                  Positioned(
+                      top: 50,
+                      right: 100,
+                      child: Lampe(lampeState: andController.ouput())),
+                  // OR
+                  Positioned(
+                      top: 190, left: 65, child: Or(controller: orController)),
+                  // AND
+                  Positioned(
+                      top: 190,
+                      right: 65,
+                      child: And(controller: andController)),
+                  // nor
+                  Positioned(top: 370, child: Not(controller: notController)),
+                  // OUTPUT or L1
+                  Positioned(
+                    top: 105,
+                    left: 125,
+                    child: LienVertical(
+                      height: 120,
+                      lienState: orController.ouput(),
                     ),
                   ),
-                )
-              ],
+                  // OUTPUT and L2
+                  Positioned(
+                    top: 105,
+                    right: 125,
+                    child: LienVertical(
+                      height: 120,
+                      lienState: andController.ouput(),
+                    ),
+                  ),
+                  // left input or L3
+                  Positioned(
+                    top: 280,
+                    left: 103,
+                    child: LienVertical(lienState: stateBouton1, height: 225),
+                  ),
+                  // right input or L4
+                  Positioned(
+                    top: 280,
+                    left: 145,
+                    child: LienVertical(
+                      height: 56,
+                      lienState: notController.output(),
+                    ),
+                  ),
+                  Positioned(
+                    top: 330,
+                    left: 150,
+                    child: LienHorizontal(
+                      width: 63,
+                      lienState: notController.output(),
+                    ),
+                  ),
+                  Positioned(
+                    top: 330,
+                    child: LienVertical(
+                      height: 60,
+                      lienState: notController.output(),
+                    ),
+                  ),
+                  // left input and L4
+                  Positioned(
+                    top: 285,
+                    right: 145,
+                    child: LienVertical(
+                        lienState: notController.output(), height: 50),
+                  ),
+                  // right input and L5
+                  Positioned(
+                    top: 285,
+                    right: 104,
+                    child: LienVertical(
+                      height: 224,
+                      lienState: stateBouton3,
+                    ),
+                  ),
+                  // input not
+                  Positioned(
+                    bottom: 140,
+                    child: LienVertical(lienState: stateBouton2, height: 50),
+                  ),
+                  // B1
+                  Positioned(
+                    // top: 250,
+                    bottom: 87,
+                    left: 77,
+                    child: Bouton(
+                        input: stateBouton1,
+                        onTap: () {
+                          setState(() {
+                            stateBouton1 = !stateBouton1;
+                            chance = chance - 1;
+                            orController.ouput();
+                            andController.ouput();
+                            if (chance == 0) {
+                              Reprendre(context, '/Niveau${level - 1}');
+                            }
+                          });
+                        }),
+                  ),
+                  // B2
+                  Positioned(
+                    // top: 250,
+                    bottom: 87,
+                    child: Bouton(
+                        input: stateBouton2,
+                        onTap: () {
+                          setState(() {
+                            stateBouton2 = !stateBouton2;
+                            chance = chance - 1;
+                            orController.ouput();
+                            andController.ouput();
+                            if (chance == 0) {
+                              Reprendre(context, '/Niveau${level - 1}');
+                            }
+                          });
+                        }),
+                  ),
+                  // B3
+                  Positioned(
+                    // top: 250,
+                    bottom: 87,
+                    right: 77,
+                    child: Bouton(
+                        input: stateBouton3,
+                        onTap: () {
+                          setState(() {
+                            stateBouton3 = !stateBouton3;
+                            chance = chance - 1;
+                            orController.ouput();
+                            andController.ouput();
+                            if ((orController.ouput() == true &&
+                                !andController.ouput() == true)) {
+                              if (level == globalLevel) {
+                                setGlobalLevel(level + 1);
+                              }
+                              Suivant(context, '/Niveau${level + 1}');
+                            } else if (chance == 0) {
+                              Reprendre(context, '/Niveau${level - 1}');
+                            }
+                          });
+                        }),
+                  ),
+                  // text
+                  const Positioned(
+                    bottom: 15,
+                    width: 360,
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      "Allumer les deux lampes en un clics",
+                      style: TextStyle(
+                        fontSize: 25,
+                        // textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ]),
+            const SizedBox(
+              height: 80,
+            )
+          ]),
+        ),
       ),
       bottomSheet: const BottomApp(),
     );

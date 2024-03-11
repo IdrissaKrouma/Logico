@@ -90,39 +90,42 @@ class _MenuState extends State<Menu> {
             ),
           ),
         ),
-        body: Container(
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(width: 2.5, color: Color(0xFF2667FF)),
+        body: Center(
+          child: Container(
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(width: 2.5, color: Color(0xFF2667FF)),
+                ),
               ),
-            ),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 30,
-                ),
-                ActuBar(level: globalLevel, score: score, chance: 0),
-                const SizedBox(
-                  height: 40,
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  height: (550),
-                  child: ListView(scrollDirection: Axis.horizontal, children: [
-                    createRang(context, 1, 30, 'DEBUTANT', globalLevel),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    createRang(context, 31, 60, 'INTERMEDIAIRE', globalLevel),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    createRang(context, 61, 90, 'DIFICILE', globalLevel),
-                  ]),
-                ),
-              ],
-            )),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  ActuBar(level: globalLevel, score: score, chance: 0),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    height: (550),
+                    child:
+                        ListView(scrollDirection: Axis.horizontal, children: [
+                      createRang(context, 1, 30, 'DEBUTANT', globalLevel),
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      createRang(context, 31, 60, 'INTERMEDIAIRE', globalLevel),
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      createRang(context, 61, 90, 'DIFICILE', globalLevel),
+                    ]),
+                  ),
+                ],
+              )),
+        ),
         bottomSheet: const BottomApp());
   }
 }

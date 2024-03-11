@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logico/home.dart';
 import 'package:logico/niveaux/niveau1.dart';
 import 'package:logico/niveaux/niveau2.dart';
 import 'package:logico/niveaux/niveau3.dart';
@@ -11,7 +12,7 @@ import 'package:logico/niveaux/niveau9.dart';
 import 'package:logico/niveaux/niveau10.dart';
 import 'package:logico/menu.dart';
 
-void main() async {
+void main() {
   runApp(const MyApp());
 }
 
@@ -31,8 +32,8 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFbde0fe)),
         useMaterial3: true,
       ),
-      home: const Menu(), // becomes the route named '/'
       routes: <String, WidgetBuilder>{
+        '/Home': (BuildContext context) => const Menu(),
         '/Menu': (BuildContext context) => const Menu(),
         '/Niveau1': (BuildContext context) => const Niveau1(),
         '/Niveau2': (BuildContext context) => const Niveau2(),
@@ -45,6 +46,7 @@ class _MyAppState extends State<MyApp> {
         '/Niveau9': (BuildContext context) => const Niveau9(),
         '/Niveau10': (BuildContext context) => const Niveau10(),
       },
+      home: const Home(), // becomes the route named '/'
     );
   }
 }

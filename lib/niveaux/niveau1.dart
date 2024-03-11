@@ -56,94 +56,98 @@ class _Niveau1State extends State<Niveau1> {
           ),
         ),
       ),
-      body: Container(
-        height: 700,
-        decoration: const BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 2.5, color: Color(0xFF2667FF)),
-          ),
-        ),
-        child: ListView(children: [
-          const SizedBox(
-            height: 20,
-          ),
-          ActuBar(level: level, score: score, chance: chance),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            margin: const EdgeInsets.all(15),
-            width: 390,
-            height: 650,
-            decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(15),
+      body: Center(
+        child: Container(
+          width: 390,
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(width: 2.5, color: Color(0xFF2667FF)),
             ),
-            child: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                // LAMPE
-                Positioned(
-                    top: 70,
-                    // bottom: 100,
-                    child: Lampe(lampeState: notController.output())),
-                // NOT
-                Positioned(
-                  top: 200,
-                  child: Not(
-                    controller: notController,
-                  ),
-                ),
-                // L1
-                Positioned(
-                  top: 125,
-                  child: LienVertical(
-                    height: 100,
-                    lienState: notController.output(),
-                  ),
-                ),
-                // L2
-                Positioned(
-                  top: 310,
-                  child: LienVertical(
-                    lienState: interrupteurState,
-                    height: 100,
-                  ),
-                ),
-                // BTN
-                Positioned(
-                  // top: 250,
-                  top: 410,
-                  child: Bouton(
-                    input: interrupteurState,
-                    onTap: () {
-                      setState(() {
-                        interrupteurState = !interrupteurState;
-                        chance = chance - 1;
-                        if (interrupteurState) {
-                          if (level == globalLevel) {
-                            setGlobalLevel(level + 1);
-                          }
-                          Suivant(context, '/Niveau${level + 1}');
-                        }
-                      });
-                    },
-                  ),
-                ),
-                // TEXT
-                const Positioned(
-                  bottom: 40,
-                  child: Text(
-                    'Eteignez la lampe',
-                    style: TextStyle(
-                      fontSize: 25,
+          ),
+          child: ListView(children: [
+            const SizedBox(
+              height: 20,
+            ),
+            ActuBar(level: level, score: score, chance: chance),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 650,
+              margin: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  // LAMPE
+                  Positioned(
+                      top: 70,
+                      // bottom: 100,
+                      child: Lampe(lampeState: notController.output())),
+                  // NOT
+                  Positioned(
+                    top: 200,
+                    child: Not(
+                      controller: notController,
                     ),
                   ),
-                ),
-              ],
+                  // L1
+                  Positioned(
+                    top: 125,
+                    child: LienVertical(
+                      height: 100,
+                      lienState: notController.output(),
+                    ),
+                  ),
+                  // L2
+                  Positioned(
+                    top: 310,
+                    child: LienVertical(
+                      lienState: interrupteurState,
+                      height: 100,
+                    ),
+                  ),
+                  // BTN
+                  Positioned(
+                    // top: 250,
+                    top: 410,
+                    child: Bouton(
+                      input: interrupteurState,
+                      onTap: () {
+                        setState(() {
+                          interrupteurState = !interrupteurState;
+                          chance = chance - 1;
+                          if (interrupteurState) {
+                            if (level == globalLevel) {
+                              setGlobalLevel(level + 1);
+                            }
+                            Suivant(context, '/Niveau${level + 1}');
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  // TEXT
+                  const Positioned(
+                    bottom: 40,
+                    child: Text(
+                      'Eteignez la lampe',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ]),
+            const SizedBox(
+              height: 80,
+            )
+          ]),
+        ),
       ),
       bottomSheet: const BottomApp(),
     );

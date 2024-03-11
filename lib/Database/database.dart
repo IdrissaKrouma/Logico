@@ -1,46 +1,52 @@
-import 'dart:io';
-// ignore: depend_on_referenced_packages
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:sembast_web/sembast_web.dart';
 import 'package:sembast/sembast.dart';
-import 'package:sembast/sembast_io.dart';
+
+class GameData {
+  final int level;
+  final int score;
+
+  GameData(this.level, this.score);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'level': level,
+      'score': score,
+    };
+  }
+
+  // Méthode statique pour créer une instance GameData à partir d'un Map
+  static GameData fromMap(Map<String, dynamic> map) {
+    return GameData(
+      map['level'],
+      map['score'],
+    );
+  }
+}
 
 class DatabaseManager {
-  // Déclaration d'une base de données et d'un store
-  late Database _database;
-  final StoreRef<int, Map<String, dynamic>> _store =
-      intMapStoreFactory.store("my_store");
+  final String _dbName = 'database.db';
+  final DatabaseFactory _dbFactory = databaseFactoryWeb;
 
-  // Initialisation de la base de données
-  Future<void> initDatabase() async {
-    // ignore: unnecessary_null_comparison
-    if (_database == null) {
-      Directory appDocumentDir = await getApplicationDocumentsDirectory();
-      String dbPath = join(appDocumentDir.path, 'my_database.db');
-      DatabaseFactory dbFactory = databaseFactoryIo;
+  Future<Database> _openDatabase() async {
+    final db = await _dbFactory.openDatabase(_dbName);
+    return db;
+  }
 
-      _database = await dbFactory.openDatabase(dbPath);
+  Future<void> saveGameData(GameData gameData) async {
+    final db = await _openDatabase();
+    final store = intMapStoreFactory.store('game_data');
+    await store.record(1).put(db, gameData.toMap());
+    await db.close();
+  }
+
+  Future<GameData> loadGameData() async {
+    final db = await _openDatabase();
+    final store = intMapStoreFactory.store('game_data');
+    final record = await store.record(1).get(db);
+    await db.close();
+    if (record == null) {
+      return GameData(1, 0); // Valeurs par défaut
     }
-  }
-
-  // Fonction pour insérer des données
-  Future<void> insertData(
-      Map<String, dynamic> data, int level, int score) async {
-    await _store.add(_database, {'level': level, 'score': score});
-  }
-
-  // Fonction pour récupérer toutes les données
-  Future<List<int>> getLevels() async {
-    final recordSnapshots = await _store.find(_database);
-    List<int> levels = [];
-    for (final snapshot in recordSnapshots) {
-      levels.add(snapshot.value['level']);
-    }
-    return levels;
-  }
-
-  Future<List<Map<String, dynamic>>> getAllData() async {
-    final recordSnapshots = await _store.find(_database);
-    return recordSnapshots.map((snapshot) => snapshot.value).toList();
+    return GameData.fromMap(record);
   }
 }

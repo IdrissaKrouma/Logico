@@ -51,143 +51,147 @@ class _Niveau9State extends State<Niveau9> {
           ),
         ),
       ),
-      body: Container(
-        height: 700,
-        decoration: const BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 2.5, color: Color(0xFF2667FF)),
-          ),
-        ),
-        child: ListView(children: [
-          const SizedBox(
-            height: 20,
-          ),
-          ActuBar(level: level, score: score, chance: chance),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.all(15),
-            width: 390,
-            height: 650,
-            decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(15),
+      body: Center(
+        child: Container(
+          width: 390,
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(width: 2.5, color: Color(0xFF2667FF)),
             ),
-            child: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                Positioned(
-                    top: 10,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 475,
-                      child: Wrap(
-                        children: [
-                          //not
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                chance = chance - 1;
-                              });
-                              Reprendre(context, '/Niveau${level - 1}');
-                            },
-                            icon: Image.asset(
-                              'assets/images/portesLogiques/not.png',
-                              width: 150,
-                              height: 150,
+          ),
+          child: ListView(children: [
+            const SizedBox(
+              height: 20,
+            ),
+            ActuBar(level: level, score: score, chance: chance),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.all(15),
+              height: 650,
+              decoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  Positioned(
+                      top: 10,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 475,
+                        child: Wrap(
+                          children: [
+                            //not
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  chance = chance - 1;
+                                });
+                                Reprendre(context, '/Niveau${level - 1}');
+                              },
+                              icon: Image.asset(
+                                'assets/images/portesLogiques/not.png',
+                                width: 150,
+                                height: 150,
+                              ),
                             ),
-                          ),
-                          //or
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                chance = chance - 1;
-                              });
-                              Reprendre(context, '/Niveau${level - 1}');
-                            },
-                            icon: Image.asset(
-                              'assets/images/portesLogiques/or.png',
-                              width: 150,
-                              height: 150,
+                            //or
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  chance = chance - 1;
+                                });
+                                Reprendre(context, '/Niveau${level - 1}');
+                              },
+                              icon: Image.asset(
+                                'assets/images/portesLogiques/or.png',
+                                width: 150,
+                                height: 150,
+                              ),
                             ),
-                          ),
-                          // and
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                chance = chance - 1;
-                              });
-                              Reprendre(context, '/Niveau${level - 1}');
-                            },
-                            icon: Image.asset(
-                              'assets/images/portesLogiques/and.png',
-                              width: 150,
-                              height: 150,
+                            // and
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  chance = chance - 1;
+                                });
+                                Reprendre(context, '/Niveau${level - 1}');
+                              },
+                              icon: Image.asset(
+                                'assets/images/portesLogiques/and.png',
+                                width: 150,
+                                height: 150,
+                              ),
                             ),
-                          ),
-                          // nor
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                chance = chance - 1;
-                              });
-                              if (level == globalLevel) {
-                                setGlobalLevel(level + 1);
-                              }
-                              Suivant(context, '/Niveau${level + 1}');
-                            },
-                            icon: Image.asset(
-                              'assets/images/portesLogiques/nor.png',
-                              width: 150,
-                              height: 150,
+                            // nor
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  chance = chance - 1;
+                                });
+                                if (level == globalLevel) {
+                                  setGlobalLevel(level + 1);
+                                }
+                                Suivant(context, '/Niveau${level + 1}');
+                              },
+                              icon: Image.asset(
+                                'assets/images/portesLogiques/nor.png',
+                                width: 150,
+                                height: 150,
+                              ),
                             ),
-                          ),
-                          //nand
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                chance = chance - 1;
-                              });
-                              Reprendre(context, '/Niveau${level - 1}');
-                            },
-                            icon: Image.asset(
-                              'assets/images/portesLogiques/nand.png',
-                              width: 150,
-                              height: 150,
+                            //nand
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  chance = chance - 1;
+                                });
+                                Reprendre(context, '/Niveau${level - 1}');
+                              },
+                              icon: Image.asset(
+                                'assets/images/portesLogiques/nand.png',
+                                width: 150,
+                                height: 150,
+                              ),
                             ),
-                          ),
-                          //xor
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                chance = chance - 1;
-                              });
-                              Reprendre(context, '/Niveau${level - 1}');
-                            },
-                            icon: Image.asset(
-                              'assets/images/portesLogiques/xor.png',
-                              width: 150,
-                              height: 150,
+                            //xor
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  chance = chance - 1;
+                                });
+                                Reprendre(context, '/Niveau${level - 1}');
+                              },
+                              icon: Image.asset(
+                                'assets/images/portesLogiques/xor.png',
+                                width: 150,
+                                height: 150,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                      )),
+                  const Positioned(
+                    bottom: 40,
+                    child: Text(
+                      'Selection le Nor',
+                      style: TextStyle(
+                        fontSize: 25,
                       ),
-                    )),
-                const Positioned(
-                  bottom: 40,
-                  child: Text(
-                    'Selection le Nor',
-                    style: TextStyle(
-                      fontSize: 25,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ]),
+            const SizedBox(
+              height: 80,
+            )
+          ]),
+        ),
       ),
       bottomSheet: const BottomApp(),
     );

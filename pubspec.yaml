@@ -40,6 +40,7 @@ dependencies:
   audioplayers: ^5.2.1
   audioplayers_web: ^4.1.0
   path_provider: ^2.1.2
+  sembast_web: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,11 @@ flutter:
     - assets/images/icons/brain.png  
     - assets/images/icons/cancel.png  
     - assets/images/icons/cancel.png 
+
+    - assets\background.png
+    - assets\background_1.png
+    - assets\background_2.png
+    
 
     - assets/audio/ 
   #   - images/a_dot_ham.jpeg

@@ -13,7 +13,7 @@ class _BottomAppState extends State<BottomApp> {
     return BottomAppBar(
         height: 70,
         child: SizedBox(
-          width: double.infinity,
+          width: 390,
           child: Image.asset(
             'assets/images/icons/brain.png',
             color: const Color(0xFF2667FF),
