@@ -1,5 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:logico/Database/database.dart';
 import 'package:logico/Database/globals.dart';
 import 'package:logico/menu.dart';
 import 'package:logico/widgetUtilitaires/autres/actu_bar.dart';
@@ -22,11 +23,25 @@ class _Niveau6State extends State<Niveau6> {
   int chance = 3;
   int validate = 0;
 
+  final DatabaseManager _dbManager = DatabaseManager();
+  late int globalLevel = 0;
+  late int score = 0;
+
   @override
   Widget build(BuildContext context) {
     int level = 6;
     int globalLevel = getGlobalLevel();
     int score = level * 5;
+
+    void get() async {
+      final gameData = await _dbManager.loadGameData();
+      setState(() {
+        globalLevel = gameData.level;
+        score = gameData.score;
+      });
+    }
+
+    get();
 
     return Scaffold(
       appBar: AppBar(
@@ -103,15 +118,18 @@ class _Niveau6State extends State<Niveau6> {
                             ),
                             //or
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 setState(() {
                                   validate = validate + 1;
                                   chance = chance - 1;
                                 });
                                 if (validate == 3) {
                                   if (level == globalLevel) {
-                                    setGlobalLevel(level + 1);
+                                    final newGameData =
+                                        GameData(globalLevel + 1, score + 10);
+                                    await _dbManager.saveGameData(newGameData);
                                   }
+                                  // ignore: use_build_context_synchronously
                                   Suivant(context, '/Niveau${level + 1}');
                                 } else if (chance == 0) {
                                   Reprendre(context, '/Niveau${level - 1}');
@@ -153,15 +171,18 @@ class _Niveau6State extends State<Niveau6> {
                             ),
                             //nand
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 setState(() {
                                   validate = validate + 1;
                                   chance = chance - 1;
                                 });
                                 if (validate == 3) {
                                   if (level == globalLevel) {
-                                    setGlobalLevel(level + 1);
+                                    final newGameData =
+                                        GameData(globalLevel + 1, score + 10);
+                                    await _dbManager.saveGameData(newGameData);
                                   }
+                                  // ignore: use_build_context_synchronously
                                   Suivant(context, '/Niveau${level + 1}');
                                 } else if (chance == 0) {
                                   Reprendre(context, '/Niveau${level - 1}');
@@ -175,15 +196,18 @@ class _Niveau6State extends State<Niveau6> {
                             ),
                             //xor
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 setState(() {
                                   validate = validate + 1;
                                   chance = chance - 1;
                                 });
                                 if (validate == 3) {
                                   if (level == globalLevel) {
-                                    setGlobalLevel(level + 1);
+                                    final newGameData =
+                                        GameData(globalLevel + 1, score + 10);
+                                    await _dbManager.saveGameData(newGameData);
                                   }
+                                  // ignore: use_build_context_synchronously
                                   Suivant(context, '/Niveau${level + 1}');
                                 } else if (chance == 0) {
                                   Reprendre(context, '/Niveau${level - 1}');

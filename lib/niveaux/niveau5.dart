@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logico/Database/globals.dart';
+import 'package:logico/Database/database.dart';
 import 'package:logico/menu.dart';
 import 'package:logico/widgetUtilitaires/autres/actu_bar.dart';
 import 'package:logico/widgetUtilitaires/autres/bottom_app.dart';
@@ -29,6 +29,10 @@ class _Niveau5State extends State<Niveau5> {
 
   int chance = 1;
 
+  final DatabaseManager _dbManager = DatabaseManager();
+  late int globalLevel = 0;
+  late int score = 0;
+
   @override
   Widget build(BuildContext context) {
     AndController andController = AndController(
@@ -50,8 +54,18 @@ class _Niveau5State extends State<Niveau5> {
     );
 
     int level = 5;
-    int globalLevel = getGlobalLevel();
-    int score = level * 5;
+    //int globalLevel = getGlobalLevel();
+    //int score = level * 5;
+
+    void get() async {
+      final gameData = await _dbManager.loadGameData();
+      setState(() {
+        globalLevel = gameData.level;
+        score = gameData.score;
+      });
+    }
+
+    get();
 
     return Scaffold(
       appBar: AppBar(
@@ -230,14 +244,17 @@ class _Niveau5State extends State<Niveau5> {
                   child: Bouton(
                       input: stateBouton2,
                       onTap: () {
-                        setState(() {
+                        setState(() async {
                           stateBouton2 = !stateBouton2;
                           chance = chance - 1;
                           if (!norController.ouput() &&
                               xorController.output()) {
                             if (level == globalLevel) {
-                              setGlobalLevel(level + 1);
+                              final newGameData =
+                                  GameData(globalLevel + 1, score + 10);
+                              await _dbManager.saveGameData(newGameData);
                             }
+                            // ignore: use_build_context_synchronously
                             Suivant(context, '/Niveau${level + 1}');
                           } else if (chance == 0) {
                             Reprendre(context, '/Niveau${level - 1}');

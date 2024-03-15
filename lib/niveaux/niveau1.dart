@@ -1,5 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:logico/Database/globals.dart';
+import 'package:logico/Database/database.dart';
 import 'package:logico/menu.dart';
 import 'package:logico/widgetUtilitaires/autres/actu_bar.dart';
 import 'package:logico/widgetUtilitaires/autres/bottom_app.dart';
@@ -23,13 +25,27 @@ class _Niveau1State extends State<Niveau1> {
   bool interrupteurState = false;
   int chance = 1;
 
+  final DatabaseManager _dbManager = DatabaseManager();
+  late int globalLevel = 0;
+  late int score = 0;
+
   @override
   Widget build(BuildContext context) {
     NotController notController = NotController(input: interrupteurState);
 
     int level = 1;
-    int globalLevel = getGlobalLevel();
-    int score = globalLevel * 5;
+    //int globalLevel = getGlobalLevel();
+    //int score = globalLevel * 5;
+
+    void get() async {
+      final gameData = await _dbManager.loadGameData();
+      setState(() {
+        globalLevel = gameData.level;
+        score = gameData.score;
+      });
+    }
+
+    get();
 
     return Scaffold(
       appBar: AppBar(
@@ -117,12 +133,14 @@ class _Niveau1State extends State<Niveau1> {
                     child: Bouton(
                       input: interrupteurState,
                       onTap: () {
-                        setState(() {
+                        setState(() async {
                           interrupteurState = !interrupteurState;
                           chance = chance - 1;
                           if (interrupteurState) {
                             if (level == globalLevel) {
-                              setGlobalLevel(level + 1);
+                              final newGameData =
+                                  GameData(globalLevel + 1, score + 10);
+                              await _dbManager.saveGameData(newGameData);
                             }
                             Suivant(context, '/Niveau${level + 1}');
                           }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:logico/Database/database.dart';
-import 'package:logico/Database/globals.dart';
 import 'package:logico/widgetUtilitaires/autres/bottom_app.dart';
 
 class Home extends StatefulWidget {
@@ -12,18 +11,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final DatabaseManager _dbManager = DatabaseManager();
+  late int globalLevel = 0;
+
   @override
   Widget build(BuildContext context) {
-    int globalLevel = getGlobalLevel();
-    // ignore: unused_local_variable
-    int level;
+    //int globalLevel = getGlobalLevel();
 
-    () async {
+    void get() async {
       final gameData = await _dbManager.loadGameData();
-      level = gameData.level;
-      //final newGameData = GameData(gameData.level + 1, gameData.score + 10);
-      //await _dbManager.saveGameData(newGameData);
-    };
+      setState(() {
+        globalLevel = gameData.level;
+      });
+    }
+
+    get();
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0XFF0a0908),

@@ -1,5 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:logico/Database/globals.dart';
+import 'package:logico/Database/database.dart';
 import 'package:logico/menu.dart';
 import 'package:logico/widgetUtilitaires/autres/actu_bar.dart';
 import 'package:logico/widgetUtilitaires/autres/bottom_app.dart';
@@ -28,6 +30,10 @@ class _Niveau8State extends State<Niveau8> {
   bool interrupteur3State = false;
   int chance = 1;
 
+  final DatabaseManager _dbManager = DatabaseManager();
+  late int globalLevel = 0;
+  late int score = 0;
+
   @override
   Widget build(BuildContext context) {
     NotController notController1 = NotController(input: interrupteur1State);
@@ -40,8 +46,18 @@ class _Niveau8State extends State<Niveau8> {
         inputLeft: interrupteur2State, inputRight: notController3.output());
 
     int level = 8;
-    int globalLevel = getGlobalLevel();
-    int score = level * 5;
+    //int globalLevel = getGlobalLevel();
+    //int score = level * 5;
+
+    void get() async {
+      final gameData = await _dbManager.loadGameData();
+      setState(() {
+        globalLevel = gameData.level;
+        score = gameData.score;
+      });
+    }
+
+    get();
 
     return Scaffold(
       appBar: AppBar(
@@ -239,10 +255,12 @@ class _Niveau8State extends State<Niveau8> {
                     child: Bouton(
                         input: interrupteur3State,
                         onTap: () {
-                          setState(() {
+                          setState(() async {
                             interrupteur3State = !interrupteur3State;
                             if (level == globalLevel) {
-                              setGlobalLevel(level + 1);
+                              final newGameData =
+                                  GameData(globalLevel + 1, score + 10);
+                              await _dbManager.saveGameData(newGameData);
                             }
                             Suivant(context, '/Niveau${level + 1}');
                           });

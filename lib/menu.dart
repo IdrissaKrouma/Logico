@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logico/Database/globals.dart';
+import 'package:logico/Database/database.dart';
 import 'package:logico/widgetUtilitaires/autres/actu_bar.dart';
 import 'package:logico/widgetUtilitaires/autres/bottom_app.dart';
 
@@ -12,6 +12,9 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  final DatabaseManager _dbManager = DatabaseManager();
+  late int globalLevel = 0;
+  late int score = 0;
   createRang<widget>(BuildContext context, int depart, int valeurFinal,
       String name, int globalLevel) {
     return Container(
@@ -57,7 +60,9 @@ class _MenuState extends State<Menu> {
                   child: TextButton(
                     onPressed: () {
                       // Navigator.defaultGenerateInitialRoutes(navigator, initialRouteName)
-                      Navigator.pushNamed(context, '/Niveau$i');
+                      if (i <= globalLevel) {
+                        Navigator.pushNamed(context, '/Niveau$i');
+                      }
                     },
                     child: Text(
                       '$i',
@@ -76,8 +81,19 @@ class _MenuState extends State<Menu> {
 
   @override
   Scaffold build(BuildContext context) {
-    int globalLevel = getGlobalLevel();
-    int score = globalLevel * 5;
+    //int globalLevel = getGlobalLevel();
+    //int score = globalLevel * 5;
+
+    get() async {
+      final gameData = await _dbManager.loadGameData();
+      setState(() {
+        globalLevel = gameData.level;
+        score = gameData.score;
+      });
+    }
+
+    get();
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

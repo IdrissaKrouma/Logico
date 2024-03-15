@@ -12,7 +12,9 @@ import 'package:logico/niveaux/niveau9.dart';
 import 'package:logico/niveaux/niveau10.dart';
 import 'package:logico/menu.dart';
 
-void main() {
+void main() async {
+  //final DatabaseManager _dbManager = DatabaseManager();
+  //await _dbManager.openDatabase();
   runApp(const MyApp());
 }
 
