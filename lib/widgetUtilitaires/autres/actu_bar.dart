@@ -22,10 +22,13 @@ class _ActuBarState extends State<ActuBar> {
     int level = widget.level;
     int score = widget.score;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: (chance == 0)
+          ? MainAxisAlignment.spaceEvenly
+          : MainAxisAlignment.spaceAround,
+      //crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Chances $chance',
+          (chance == 0) ? "" : 'Chances $chance',
           style: const TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
